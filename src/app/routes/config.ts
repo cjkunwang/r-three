@@ -37,6 +37,21 @@ export const NAV_GROUPS: NavGroup[] = [
       },
     ],
   },
+  {
+    label: "场景加载",
+    items: [
+      {
+        path: "/texture/cubemap",
+        label: "立方体贴图",
+        component: lazy(() => import("@/pages/examples/texture/cubemap")),
+      },
+      {
+        path: "/texture/texture",
+        label: "全景",
+        component: lazy(() => import("@/pages/examples/texture/texture")),
+      },
+    ],
+  }
 ];
 
 export const DEFAULT_ROUTE = "/basic/box";
