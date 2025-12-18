@@ -51,6 +51,15 @@ export const NAV_GROUPS: NavGroup[] = [
         component: lazy(() => import("@/pages/examples/texture/texture")),
       },
     ],
+  }, {
+    label: "控制交互",
+    items: [
+      {
+        path: "/control/presentation",
+        label: "演示控制",
+        component: lazy(() => import("@/pages/examples/control/Presentation")),
+      },
+    ],
   }
 ];
 
