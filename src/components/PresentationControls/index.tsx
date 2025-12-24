@@ -9,12 +9,14 @@ function PresentationControls({
   snap = true, // 是否自动回正，默认为 true
   polar = [0, Math.PI], // 垂直旋转范围，默认为 [0, PI]
   azimuth = [-Infinity, Infinity], // 水平旋转范围，默认为无限
+  eps = 0.01, // 回正阈值，默认为 0.01
 }: {
   children: ReactNode;
   speed: number;
   snap: boolean;
   polar: [number, number];
   azimuth: [number, number];
+  eps: number;
 }) {
   // 组件参数解构结束
   const groupRef = useRef<THREE.Group>(null); // 创建一个 ref 用于引用 group 元素
@@ -94,7 +96,6 @@ function PresentationControls({
     // 使用 useFrame 钩子，每一帧执行
     // 弹簧插值（阻尼系数自己调）
 
-    const eps = 1;
     state.current.polar = THREE.MathUtils.lerp(
       // 对垂直角度进行线性插值
       state.current.polar, // 当前垂直角度

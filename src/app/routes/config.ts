@@ -51,7 +51,8 @@ export const NAV_GROUPS: NavGroup[] = [
         component: lazy(() => import("@/pages/examples/texture/texture")),
       },
     ],
-  }, {
+  },
+  {
     label: "控制交互",
     items: [
       {
@@ -60,7 +61,27 @@ export const NAV_GROUPS: NavGroup[] = [
         component: lazy(() => import("@/pages/examples/control/Presentation")),
       },
     ],
-  }
+  },
+  {
+    label: "场景拆分",
+    items: [
+      {
+        path: "/split/splitView",
+        label: "场景拆分",
+        component: lazy(() => import("@/pages/examples/split/splitView")),
+      },
+      {
+        path: "/split/splitScene",
+        label: "同屏异构",
+        component: lazy(() => import("@/pages/examples/split/splitScene")),
+      },
+      {
+        path: "/split/splitMaterial",
+        label: "材质对比",
+        component: lazy(() => import("@/pages/examples/split/splitMaterial")),
+      },
+    ],
+  },
 ];
 
 export const DEFAULT_ROUTE = "/basic/box";

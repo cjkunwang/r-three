@@ -23,7 +23,7 @@ export default function ExampleLayout({ canvas, source }: Props) {
           <div className="canvas-toolbar">
             <button className="btn" onClick={() => setFull(true)}>全屏展示</button>
           </div>
-          {canvas}
+          {!full && canvas}
         </div>
         <div className="doc-pane">
           <MarkdownPanel source={source} />
@@ -36,7 +36,7 @@ export default function ExampleLayout({ canvas, source }: Props) {
             <button className="btn" onClick={() => setFull(false)}>退出全屏</button>
           </div>
           <div className="overlay-canvas">
-            {canvas}
+            {full && canvas}
           </div>
         </div>
       )}

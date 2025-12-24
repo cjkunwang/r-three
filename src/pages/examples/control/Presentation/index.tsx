@@ -5,14 +5,18 @@ import PresentationControls from "@/components/PresentationControls";
 
 export default function TorusPage() {
   return (
-    <SceneCanvas camera={{ position: [3, 2.5, 3], fov: 60 }}>
+    <SceneCanvas
+      camera={{ position: [3, 2.5, 3], fov: 60 }}
+      isOrbitControls={false}
+    >
       <PresentationControls
-        speed={0.5}
+        speed={1}
         snap={false}
         polar={[0, Math.PI]}
         azimuth={[-Math.PI / 2, Math.PI / 2]}
+        eps={0.01}
       >
-        <BoxScene />
+        <BoxScene isAnimated={false} />
       </PresentationControls>
     </SceneCanvas>
   );

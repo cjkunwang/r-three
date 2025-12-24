@@ -7,6 +7,7 @@ type Props = {
   camera?: { position?: [number, number, number]; fov?: number };
   lights?: boolean;
   className?: string;
+  isOrbitControls?: boolean;
 };
 
 export default function SceneCanvas({
@@ -14,6 +15,7 @@ export default function SceneCanvas({
   camera,
   lights = true,
   className,
+  isOrbitControls = true,
 }: Props) {
   return (
     <div className={className} style={{ width: "100%", height: "100%" }}>
@@ -31,7 +33,7 @@ export default function SceneCanvas({
           </>
         )}
         {children}
-        <OrbitControls />
+        {isOrbitControls && <OrbitControls />}
       </Canvas>
     </div>
   );
