@@ -82,6 +82,16 @@ export const NAV_GROUPS: NavGroup[] = [
       },
     ],
   },
+  {
+    label: "剪裁效果",
+    items: [
+      {
+        path: "/clip/clippingPlanes",
+        label: "基础剪裁",
+        component: lazy(() => import("@/pages/examples/clip/ClippingPlanes")),
+      },
+    ],
+  },
 ];
 
 export const DEFAULT_ROUTE = "/basic/box";

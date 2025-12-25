@@ -8,6 +8,7 @@ type Props = {
   lights?: boolean;
   className?: string;
   isOrbitControls?: boolean;
+  gl?: { localClippingEnabled?: boolean };
 };
 
 export default function SceneCanvas({
@@ -16,6 +17,7 @@ export default function SceneCanvas({
   lights = true,
   className,
   isOrbitControls = true,
+  gl = { localClippingEnabled: false },
 }: Props) {
   return (
     <div className={className} style={{ width: "100%", height: "100%" }}>
@@ -25,6 +27,7 @@ export default function SceneCanvas({
           position: camera?.position ?? [3, 3, 3],
           fov: camera?.fov ?? 60,
         }}
+        gl={gl}
       >
         {lights && (
           <>
