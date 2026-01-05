@@ -1,6 +1,6 @@
 import SceneCanvas from "@/components/SceneCanvas";
 import { useFrame } from "@react-three/fiber";
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useMemo } from "react";
 import * as THREE from "three";
 import { useControls } from "leva";
 
@@ -9,7 +9,7 @@ function Scene() {
   const planeRef = useRef<THREE.Mesh>(null);
   const planeMatRef = useRef<THREE.ShaderMaterial>(null);
 
-  const { x, y, z, constant, bandWidth } = useControls({
+  const { x, y, z, constant, bandWidth, showPlane } = useControls({
     x: { value: 0, min: -1, max: 1, step: 0.1 },
     y: { value: -1, min: -1, max: 1, step: 0.1 },
     z: { value: 0, min: -1, max: 1, step: 0.1 },
@@ -20,6 +20,7 @@ function Scene() {
       step: 0.1,
     },
     bandWidth: { value: 0.03, min: 0.0, max: 0.2, step: 0.005 },
+    showPlane: { value: true },
   });
 
   useFrame(() => {
@@ -27,6 +28,7 @@ function Scene() {
     clipPlane.current.constant = constant;
     if (planeMatRef.current) {
       planeMatRef.current.uniforms.bandWidth.value = bandWidth;
+      planeMatRef.current.uniforms.showPlane.value = showPlane;
     }
     if (planeRef.current) {
       const n = clipPlane.current.normal;
@@ -59,6 +61,7 @@ function Scene() {
     uniform vec3 lineColor;
     uniform float bandWidth;
     uniform float gridScale;
+    uniform bool showPlane;
     varying vec2 vUv;
     varying vec3 vLocalPos;
     void main() {
@@ -68,7 +71,11 @@ function Scene() {
       vec3 mixed = mix(base, lineColor, lineG);
       float center = 1.0 - smoothstep(0.0, bandWidth, abs(vLocalPos.y));
       mixed = mix(mixed, lineColor, center);
+      if (!showPlane) {
+        discard;
+      }
       gl_FragColor = vec4(mixed, 0.85);
+
     }
   `;
 
@@ -90,12 +97,16 @@ function Scene() {
           ref={planeMatRef}
           vertexShader={planeVertex}
           fragmentShader={planeFragment}
-          uniforms={{
-            color: { value: new THREE.Color("#4ecdc4") },
-            lineColor: { value: new THREE.Color("#00ff88") },
-            bandWidth: { value: bandWidth },
-            gridScale: { value: 10 },
-          }}
+          uniforms={useMemo(
+            () => ({
+              color: { value: new THREE.Color("#4ecdc4") },
+              lineColor: { value: new THREE.Color("#00ff88") },
+              bandWidth: { value: bandWidth },
+              gridScale: { value: 10 },
+              showPlane: { value: showPlane },
+            }),
+            []
+          )}
           side={THREE.DoubleSide}
           transparent
         />
