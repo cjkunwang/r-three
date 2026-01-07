@@ -91,6 +91,11 @@ export const NAV_GROUPS: NavGroup[] = [
         component: lazy(() => import("@/pages/examples/clip/ClippingPlanes")),
       },
       {
+        path: "/clip/bvhCliping",
+        label: "BVH剪裁",
+        component: lazy(() => import("@/pages/examples/clip/BVHCliping")),
+      },
+      {
         path: "/clip/stencilCliping",
         label: "模板剪裁",
         component: lazy(() => import("@/pages/examples/clip/StencilCliping")),
