@@ -112,6 +112,16 @@ export const NAV_GROUPS: NavGroup[] = [
       },
     ],
   },
+  {
+    label: "Hero展示",
+    items: [
+      {
+        path: "/hero/people",
+        label: "人物展示",
+        component: lazy(() => import("@/pages/examples/heroSection/people")),
+      },
+    ],
+  },
 ];
 
 export const DEFAULT_ROUTE = "/basic/box";

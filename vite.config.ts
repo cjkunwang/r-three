@@ -11,6 +11,7 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "src"),
       "textures": path.resolve(__dirname, "public/textures"),
+      "obj": path.resolve(__dirname, "public/obj"),
     },
   },
 });
