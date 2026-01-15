@@ -30,6 +30,13 @@ const Scene = () => {
     return geo;
   }, []);
 
+  const geometry2 = useMemo(() => {
+    const geo = new THREE.BoxGeometry(1, 1, 1);
+    // @ts-ignore
+    geo.computeBoundsTree();
+    return geo;
+  }, []);
+
   const { x, y, z, constant } = useControls({
     x: { value: -1, min: -1, max: 1 },
     y: { value: -1, min: -1, max: 1 },
@@ -41,6 +48,11 @@ const Scene = () => {
   planeColor.r = (x + 1) / 2;
   planeColor.g = (y + 1) / 2;
   planeColor.b = (z + 1) / 2;
+
+  const planeColor2 = new THREE.Color();
+  planeColor2.r = (z + 1) / 2;
+  planeColor2.g = (y + 1) / 2;
+  planeColor2.b = (x + 1) / 2;
 
   const helperRef = useRef<THREE.ArrowHelper>(null);
 
@@ -75,6 +87,23 @@ const Scene = () => {
         geometry={geometry}
         plane={clipPlane.current}
         color={planeColor}
+        renderOrder={10}
+        planeOffset={0.0005}
+      />
+      <mesh>
+        <primitive object={geometry2} attach="geometry" />
+        <meshStandardMaterial
+          color="#4f46e5"
+          clippingPlanes={[clipPlane.current]}
+          clipShadows={true}
+        />
+      </mesh>
+      <Section
+        geometry={geometry2}
+        plane={clipPlane.current}
+        color={planeColor2}
+        renderOrder={11}
+        planeOffset={0.001}
       />
     </>
   );

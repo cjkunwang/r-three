@@ -50,6 +50,16 @@ export const NAV_GROUPS: NavGroup[] = [
         label: "全景",
         component: lazy(() => import("@/pages/examples/texture/texture")),
       },
+      {
+        path: "/texture/videoProjective",
+        label: "视频投影",
+        component: lazy(
+          () =>
+            import(
+              "@/pages/examples/textureMapping/videoProjective"
+            ),
+        ),
+      },
     ],
   },
   {

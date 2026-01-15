@@ -7,9 +7,17 @@ interface SectionProps {
   geometry: THREE.BufferGeometry;
   plane: THREE.Plane;
   color: THREE.ColorRepresentation;
+  renderOrder?: number;
+  planeOffset?: number;
 }
 
-export const Section = ({ geometry, plane, color }: SectionProps) => {
+export const Section = ({
+  geometry,
+  plane,
+  color,
+  renderOrder = 10,
+  planeOffset = 0,
+}: SectionProps) => {
   const sectionMeshRef = useRef<THREE.Mesh>(null);
 
   useFrame(() => {
@@ -42,7 +50,10 @@ export const Section = ({ geometry, plane, color }: SectionProps) => {
         // Align mesh to plane
         const m = new THREE.Matrix4().makeBasis(u, v, n);
         sectionMeshRef.current.quaternion.setFromRotationMatrix(m);
-        sectionMeshRef.current.position.copy(n).multiplyScalar(-plane.constant);
+        sectionMeshRef.current.position
+          .copy(n)
+          .multiplyScalar(-plane.constant)
+          .addScaledVector(n, planeOffset);
         sectionMeshRef.current.visible = true;
       } else {
         sectionMeshRef.current.visible = false;
@@ -53,9 +64,16 @@ export const Section = ({ geometry, plane, color }: SectionProps) => {
   });
 
   return (
-    <mesh ref={sectionMeshRef}>
+    <mesh ref={sectionMeshRef} renderOrder={renderOrder}>
       <bufferGeometry />
-      <meshBasicMaterial color={color} side={THREE.DoubleSide} />
+      <meshBasicMaterial
+        color={color}
+        side={THREE.DoubleSide}
+        depthWrite={false}
+        polygonOffset
+        polygonOffsetFactor={-1}
+        polygonOffsetUnits={-1}
+      />
     </mesh>
   );
 };

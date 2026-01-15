@@ -10,6 +10,7 @@ const Scene = () => {
     new THREE.Plane(new THREE.Vector3(-1, -1, -1).normalize(), 0)
   );
   const geometry = new THREE.TorusKnotGeometry(1, 0.3, 128, 32);
+  const geometry2 = new THREE.BoxGeometry(1, 1, 1);
 
   const { x, y, z, constant } = useControls({
     x: { value: -1, min: -1, max: 1 },
@@ -42,6 +43,19 @@ const Scene = () => {
       </mesh>
       <PlaneStencilGroup
         geometry={geometry}
+        plane={clipPlane.current}
+        color={planeColor}
+      />
+      <mesh>
+        <primitive object={geometry2} attach="geometry" />
+        <meshStandardMaterial
+          color="#4f46e5"
+          clippingPlanes={[clipPlane.current]}
+          clipShadows={true}
+        />
+      </mesh>
+      <PlaneStencilGroup
+        geometry={geometry2}
         plane={clipPlane.current}
         color={planeColor}
       />
